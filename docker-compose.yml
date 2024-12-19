@@ -1,6 +1,6 @@
 services:
   application:
-    image: spring-boot-mysql-app  # Ensure this image exists or is built locally
+    build: .  # This tells Docker Compose to build the image locally using the Dockerfile in the current directory
     ports:
       - "8080:8080"
     networks:
@@ -8,17 +8,17 @@ services:
     depends_on:
       - mysqldb
     volumes:
-      - /data/springboot-app  # Ensure this directory exists or update it as needed
-
+      - /data/springboot-app  # You can adjust this volume if necessary
+    
   mysqldb:
-    image: mysql:8
+    image: mysql:5.7  # This image is pulled from Docker Hub
     networks:
       - springboot-db-net
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=order_service
+      - MYSQL_DATABASE=order_service  # Adjust database name if needed
     volumes:
-      - /data/mysql  # Ensure this directory exists or update it as needed
+      - /data/mysql  # You can also adjust this volume if necessary
 
 networks:
   springboot-db-net:
