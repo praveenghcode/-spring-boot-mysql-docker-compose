@@ -1,6 +1,6 @@
 services:
   application:
-    build: .  # This tells Docker Compose to build the image locally using the Dockerfile in the current directory
+    build: .  # This will build the image locally from the Dockerfile in the current directory
     ports:
       - "8080:8080"
     networks:
@@ -8,17 +8,17 @@ services:
     depends_on:
       - mysqldb
     volumes:
-      - /data/springboot-app  # You can adjust this volume if necessary
-    
+      - /data/springboot-app
+
   mysqldb:
-    image: mysql:5.7  # This image is pulled from Docker Hub
+    image: mysql:8  # This image will be pulled from Docker Hub
     networks:
       - springboot-db-net
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=order_service  # Adjust database name if needed
     volumes:
-      - /data/mysql  # You can also adjust this volume if necessary
+      - /data/mysql
 
 networks:
   springboot-db-net:
